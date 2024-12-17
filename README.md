@@ -10,6 +10,13 @@ $ docker login
 $ docker push ccesitull/esit-ia:x.y.z
 ```
 
+### Ejecución del registro local de docker:
+```
+$ ./run-docker-registry.sh
+```
+Este script se debe ejecutar al arrancar cada equipo, de tal manera que se 
+cree un registro local en cada máquina, que va a actuar como proxy del Docker hub.
+
 ### Creación del contenedor:
 ```
 $ mkdir data
