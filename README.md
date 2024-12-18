@@ -20,5 +20,5 @@ cree un registro local en cada máquina, que va a actuar como proxy del Docker h
 ### Creación del contenedor:
 ```
 $ mkdir data
-$ docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia esit-ia:x.y.z
+$ docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia localhost:5000/ccesitull/esit-ia:x.y.z
 ```
