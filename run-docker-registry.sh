@@ -6,19 +6,40 @@ if ! docker ps -a --filter "name=^registry$" --format "{{.Names}}" | grep -q "^r
 fi
 
 # Proxy as mirror
-if [ ! -f /etc/docker/daemon.json ]; then
-  systemctl stop docker.socket
-  systemctl stop docker
-  echo '{"registry-mirrors": ["http://localhost:5000"]}' | tee /etc/docker/daemon.json > /dev/null
-  systemctl start docker
+CONFIG_FILE="/etc/docker/daemon.json"
+
+DESIRED_CONFIG='{
+  "default-runtime": "nvidia",
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  },
+  "registry-mirrors": ["http://localhost:5000"]
+}'
+
+MODIFY=false
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  # Creando archivo daemon.json con la configuración deseada...
+  echo "$DESIRED_CONFIG" > "$CONFIG_FILE"
+  MODIFY=true
 else
-  if ! grep -q '"registry-mirrors": \["http://localhost:5000"\]' /etc/docker/daemon.json; then
-    systemctl stop docker.socket
-    systemctl stop docker
-    echo '{"registry-mirrors": ["http://localhost:5000"]}' | tee -a /etc/docker/daemon.json > /dev/null
-    systemctl start docker
+  CURRENT_CONFIG=$(cat "$CONFIG_FILE")
+  if [ "$CURRENT_CONFIG" != "$DESIRED_CONFIG" ]; then
+    # Actualizando archivo daemon.json con la configuración deseada...
+    echo "$DESIRED_CONFIG" > "$CONFIG_FILE"
+    MODIFY=true
   fi
 fi
 
+if [ "$MODIFY" = true ]; then
+  # Reiniciando Docker para aplicar los cambios...
+  systemctl stop docker.socket || true
+  systemctl stop docker
+  systemctl start docker
+fi
+
 # Download image
-docker pull localhost:5000/ccesitull/esit-ia:0.0.2
+docker pull ccesitull/esit-ia:0.0.3
