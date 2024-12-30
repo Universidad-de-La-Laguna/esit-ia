@@ -27,10 +27,8 @@ RUN python3.10 -m pip install tensorflow==2.15.0  keras keras-cv matplotlib
 
 # Verificar la instalación de CUDA y cuDNN
 RUN nvcc --version
-COPY script.py /workspace/script.py
-
 # Establecer el directorio de trabajo
 WORKDIR /workspace
 
 # Comando por defecto
-CMD ["python3.11", "script.py"]
+CMD ["python3.10"]
