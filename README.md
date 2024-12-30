@@ -1,6 +1,10 @@
 # ESIT-IA
 Imágenes docker para las asignaturas de IA de la ESIT
 
+
+El objetivo de este repositorio es ofrecer una imagen Docker que ejecute en local los ejemplos propuestos en el asignatura de Inteligencia Artificial.
+
+
 ### Para actualizar la imagen en Docker hub:
 ```
 $ docker build -t esit-ia:x.y.z .
