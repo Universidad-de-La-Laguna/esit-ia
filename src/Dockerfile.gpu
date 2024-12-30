@@ -22,8 +22,8 @@ RUN apt-get install -y python3.10 \
         python3-pip 
 RUN rm -rf /var/lib/apt/lists/*
 # Actualizar pip e instalar TensorFlow, Keras y otras dependencias
-RUN python3.11 -m pip install --upgrade pip 
-RUN python3.11 -m pip install tensorflow==2.15.0  keras keras-cv matplotlib
+RUN python3.10 -m pip install --upgrade pip 
+RUN python3.10 -m pip install tensorflow==2.15.0  keras keras-cv matplotlib
 
 # Verificar la instalación de CUDA y cuDNN
 RUN nvcc --version
