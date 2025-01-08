@@ -108,6 +108,57 @@ cat /etc/docker/daemon.json
 }
 ```
 
+- En modo Docker Rootless se debe configurar  el fichero /etc/nvidia-container-runtime/config.toml  mediante
+
+```
+nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
+```
+
+según https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+```
+cat /etc/nvidia-container-runtime/config.toml
+#accept-nvidia-visible-devices-as-volume-mounts = false
+#accept-nvidia-visible-devices-envvar-when-unprivileged = true
+disable-require = false
+supported-driver-capabilities = "compat32,compute,display,graphics,ngx,utility,video"
+#swarm-resource = "DOCKER_RESOURCE_GPU"
+
+[nvidia-container-cli]
+#debug = "/var/log/nvidia-container-toolkit.log"
+environment = []
+#ldcache = "/etc/ld.so.cache"
+ldconfig = "@/sbin/ldconfig.real"
+load-kmods = true
+no-cgroups = true
+#path = "/usr/bin/nvidia-container-cli"
+#root = "/run/nvidia/driver"
+#user = "root:video"
+
+[nvidia-container-runtime]
+#debug = "/var/log/nvidia-container-runtime.log"
+log-level = "info"
+mode = "auto"
+runtimes = ["docker-runc", "runc", "crun"]
+
+[nvidia-container-runtime.modes]
+
+[nvidia-container-runtime.modes.cdi]
+annotation-prefixes = ["cdi.k8s.io/"]
+default-kind = "nvidia.com/gpu"
+spec-dirs = ["/etc/cdi", "/var/run/cdi"]
+
+[nvidia-container-runtime.modes.csv]
+mount-spec-path = "/etc/nvidia-container-runtime/host-files-for-container.d"
+
+[nvidia-container-runtime-hook]
+path = "nvidia-container-runtime-hook"
+skip-mode-detection = false
+
+[nvidia-ctk]
+path = "nvidia-ctk"
+```
+
 - Como imagen base del fichero Dockerfile se usa la imangen propuesta por Nvidia. Importante que sea "devel" y con "cudann". Tener cuidado que sea compatible con el driver instalado en el host
 
 
