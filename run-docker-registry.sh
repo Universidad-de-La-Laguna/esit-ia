@@ -42,4 +42,4 @@ if [ "$MODIFY" = true ]; then
 fi
 
 # Download image
-docker pull ccesitull/esit-ia:0.0.3
+docker pull ccesitull/esit-ia:0.0.6
