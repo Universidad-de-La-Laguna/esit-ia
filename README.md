@@ -10,6 +10,16 @@ El contenedor está disponible en DockerHub https://hub.docker.com/r/ccesitull/e
 Puede visualizar los notebooks en el directorio src https://github.com/Universidad-de-La-Laguna/esit-ia/tree/main/src
 
 
+## Ejecuión en los ordenadores en el CC
+
+Para poder ejecutar ejecutar los comandos docker como alumno o profesor debe primeramente 
+
+```
+docker-rootless.sh 
+```
+
+En el caso del Centro de Cálculo de la ESIT lo ordenadores con GPUs disponible se encuentran en la sala 1.2.
+
 
 ### Ejecución del contenedor sin GPUs
 
@@ -36,15 +46,6 @@ git clone https://github.com/Universidad-de-La-Laguna/esit-ia.git
 docker build -t ejemplo-esit-ia .
 ```
 
-## Ejecuión en los ordenadores en el CC
-
-Para poder ejecutar ejecutar los comandos docker como alumno o profesor debe primeramente 
-
-```
-docker-rootless.sh 
-```
-
-En el caso del Centro de Cálculo de la ESIT lo ordenadores con GPUs disponible se encuentran en la sala 1.2.
 
 
 ## Configuración de la GPU
