@@ -18,7 +18,7 @@ Puede visualizar los notebooks en el directorio src
 Ejecute el comando y acceda a http://localhost:8888
 
 ```
-$ `docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6`
+docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6
 ```
 
 ### Ejecución del contenedor con GPUs
@@ -26,18 +26,21 @@ $ `docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesi
 Ejecute el comando y acceda a http://localhost:8888
 
 ```
-$ `docker run -d -it --gpus all -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6`
+docker run -d -it --gpus all -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6
 ```
 
 ### Para construir la imagen en local
+
+Si desea construir la imagen envés de descargarla use el siguiente comando
+
 ```
-$ git clone https://github.com/Universidad-de-La-Laguna/esit-ia.git
-$ docker build -t ejemplo-esit-ia .
+git clone https://github.com/Universidad-de-La-Laguna/esit-ia.git
+docker build -t ejemplo-esit-ia .
 ```
 
 ## Configuración de la GPU
 
-Para la ejecuación sobre ordenadores con GPU se debe tener en cuenta.ls
+Este apartado está orientado para los adminstradores del ordenadores.  Para la ejecuación sobre ordenadores con GPU se debe tener en cuenta.ls
 
 - Instalar el driver de la tarjeta. Según el driver instalado se deberá instalar la versión CUDA correspondiente. Con el comando nvidia-smi puede consultar la tarjeta, driver, version de CUDA soportada.
 
@@ -70,13 +73,13 @@ Wed Jan  8 12:49:56 2025
 - Instalar el paquete nvidia-container-toolkit  que permite a un contenedor Docker usar la GPUs
   La instalación se hace mediante el comando
 
-'''
+```
 apt install nvidia-container-toolkit
-'''
+```
 
 - Configurar el runtime el demonio Docker. En el CC además añadimos un registro local de proxy
 
-'''
+```
 cat /etc/docker/daemon.json 
 {
   "runtimes": {
@@ -88,16 +91,14 @@ cat /etc/docker/daemon.json
   "registry-mirrors": ["http://localhost:5000"],
   "insecure-registries": ["localhost:5000"]
 }
-
+```
 
 - Como imagen base del fichero Dockerfile se usa la imangen propuesta por Nvidia. Importante que sea "devel" y con "cudann". Tener cuidado que sea compatible con el driver instalado en el host
 
 
-'''
+```
 FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
-'''
+```
 
 - Como norma general trabajar con versiones fijadas 'pinneadas' de los paquetes  y revisar la compatibilidad de las librería cuda, tensorflow. 
    
-
-
