@@ -10,6 +10,9 @@ El contenedor está disponible en DockerHub https://hub.docker.com/r/ccesitull/e
 Puede visualizar los notebooks en el directorio src https://github.com/Universidad-de-La-Laguna/esit-ia/tree/main/src
 
 
+Como buena práctica se aconseja dividir los ejemplos en varios notebooks que disminuya la dependencia entre ellos
+
+
 ## Ejecuión en los ordenadores en el CC
 
 Para poder ejecutar ejecutar los comandos docker como alumno o profesor debe primeramente 
@@ -113,9 +116,19 @@ FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 ```
 
 - Como norma general trabajar con versiones fijadas 'pinneadas' de los paquetes  y revisar la compatibilidad de las librería cuda, tensorflow. 
-   
 
-## Antencedentes
+- Al final de cada notebook se añade el comando 
+
+```
+!pkill -9 -f ipykernel_launcher 
+``` 
+
+para matar el proceso de kernel de Jupyter y liberar la memoria ocupada por los modelos en la GPUs. 
+Queda pendiente hacer la liberación de memoria de una manera más elegante
+
+
+
+## Antecedentes
 
 El ejemplo  parte de un notebook inicial de Kaggle https://www.kaggle.com/code/patriciogarciabaez/rnas-preentrenadas
 
