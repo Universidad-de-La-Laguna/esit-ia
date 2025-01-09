@@ -26,18 +26,20 @@ En el caso del Centro de Cálculo de la ESIT lo ordenadores con GPUs disponible 
 
 ### Ejecución del contenedor sin GPUs
 
-Ejecute el comando y acceda a http://localhost:8888
+Ejecute el comando y acceda a http://localhost:8888 o a http://localhost:8888/lab
 
 ```
-docker run -d -it -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6
+cd  datos/Disco_Duro_Virtual/home/
+git clone https://github.com/Universidad-de-La-Laguna/esit-ia.git
+docker run -d -it -p 8888:8888 -v $(pwd):/workspace --name esit-ia ccesitull/esit-ia:0.0.6
 ```
 
 ### Ejecución del contenedor con GPUs
 
-Ejecute el comando y acceda a http://localhost:8888
+Ejecute el comando y acceda a http://localhost:8888 o a http://localhost:8888/lab
 
 ```
-docker run -d -it --gpus all -p 8888:8888 -v $(pwd)/data:/workspace --name esit-ia ccesitull/esit-ia:0.0.6
+docker run -d -it --gpus all -p 8888:8888 -v $(pwd):/workspace --name esit-ia ccesitull/esit-ia:0.0.6
 ```
 
 ### Para construir la imagen en local
@@ -46,6 +48,7 @@ Si desea construir la imagen envés de descargarla use el siguiente comando
 
 ```
 git clone https://github.com/Universidad-de-La-Laguna/esit-ia.git
+cd esit-ia
 docker build -t ejemplo-esit-ia .
 ```
 
