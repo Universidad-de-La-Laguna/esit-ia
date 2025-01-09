@@ -15,7 +15,7 @@ Como buena práctica se aconseja dividir los ejemplos en varios notebooks que di
 
 ## Ejecuión en los ordenadores en el CC
 
-Para poder ejecutar ejecutar los comandos docker como alumno o profesor debe primeramente 
+Para poder ejecutar ejecutar los comandos docker como alumno o profesor debe iniciar primero el demonio Docker en modo rootless
 
 ```
 docker-rootless.sh 
