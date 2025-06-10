@@ -62,6 +62,8 @@ Para la ejecuación sobre ordenadores con GPU se debe tener en cuenta:
 
 - Instalar el driver de la tarjeta. Según el driver instalado se deberá instalar la versión CUDA correspondiente. Con el comando nvidia-smi puede consultar la tarjeta, driver, version de CUDA soportada.
 
+Resultado de nvidia-smi en RTX 3060 con 12 GB 
+
 ```
  nvidia-smi 
 Wed Jan  8 12:49:56 2025       
@@ -86,6 +88,34 @@ Wed Jan  8 12:49:56 2025
 |    0   N/A  N/A      8961      G   /usr/bin/gnome-shell                          6MiB |
 +---------------------------------------------------------------------------------------+
 
+```
+
+Resultado de nvidia-smi para 5060ti 16Gb
+
+```
+gpu1:~$ nvidia-smi
+Tue Jun 10 12:18:20 2025
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060 Ti     Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   25C    P8              3W /  180W |   14207MiB /  16311MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1952      G   /usr/lib/xorg/Xorg                       43MiB |
+|    0   N/A  N/A            2155      G   /usr/bin/gnome-shell                      8MiB |
+|    0   N/A  N/A           10291      C   /usr/bin/python3.10                   14128MiB |
++-----------------------------------------------------------------------------------------+
 ```
 
 - Instalar el paquete nvidia-container-toolkit  que permite a un contenedor Docker usar la GPUs
@@ -180,7 +210,7 @@ FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 para matar el proceso de kernel de Jupyter y liberar la memoria ocupada por los modelos en la GPUs. 
 Queda pendiente hacer la liberación de memoria de una manera más elegante
 
-
+ 
 
 ## Antecedentes
 
