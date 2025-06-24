@@ -125,6 +125,28 @@ Tue Jun 10 12:18:20 2025
 apt install nvidia-container-toolkit
 ```
 
+Ojo. Hay un bug en nvidia-container-toolkit 
+https://github.com/NVIDIA/nvidia-container-toolkit/issues/381
+
+Hacer downgrade a la versión 1.14.0-1
+
+```
+# first remove the old ones
+sudo apt remove --purge nvidia-container-toolkit
+sudo apt update
+sudo apt autoremove
+
+# check version availability
+apt list -a "*nvidia-container-toolkit*"
+# install 1.14.0-1
+apt install nvidia-container-toolkit=1.14.0-1 nvidia-container-toolkit-base=1.14.0-1
+```
+
+o modificar try setting no-cgroups = false in /etc/nvidia-container-runtime/config.toml
+pero en este caso no funcionaría en modo rootless
+
+
+
 - Configurar el runtime el demonio Docker. En el CC además añadimos un registro local de proxy
 
 ```
